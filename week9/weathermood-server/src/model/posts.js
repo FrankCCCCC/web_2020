@@ -32,11 +32,16 @@ function done(id){
             if (err) reject(err);
             
             let posts = data ? JSON.parse(data) : [];
-            // console.log(data)
+            let doneTask = null
+            console.log(id)
             if (posts.length > 0 && id) {
                 posts.forEach((p, index, array) => {
                     if(p.id == id){
-                        p.doneTs = moment().unix()
+                        doneTask = p
+                        if(p.doneTs == null){
+                            p.doneTs = moment().unix()
+                        }
+                        console.log(p)
                     }
                 });
 
@@ -45,7 +50,7 @@ function done(id){
                 });
             }
 
-            resolve(posts);
+            resolve(doneTask);
         });
     });
 }
@@ -72,6 +77,7 @@ function create(mood, text) {
                 newPost,
                 ...posts
             ];
+            console.log(posts)
             fs.writeFile('data-posts.json', JSON.stringify(posts), err => {
                 if (err) reject(err);
 

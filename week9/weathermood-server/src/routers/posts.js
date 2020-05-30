@@ -33,7 +33,7 @@ router.post('/posts', function(req, res, next) {
 
 // Done
 router.post('/done', function(req, res, next) {
-    const doneId = req.body;
+    const doneId = req.body.id;
     if (!doneId) {
         const err = new Error('ID of accomplished task are required');
         err.status = 400;
